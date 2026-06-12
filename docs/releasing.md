@@ -53,8 +53,8 @@ Proceed with release preparation?
   ```
 - [ ] Set up the development environment:
   ```bash
-  uv sync --all-extras
-  uv run playwright install chromium
+  pip install --break-system-packages -e ".[all]"
+  /usr/bin/python3.12 -m playwright install chromium
   ```
 
 ---
@@ -69,7 +69,7 @@ Proceed with release preparation?
 - [ ] Update `Last Updated` dates in modified docs
 - [ ] Verify example scripts have valid syntax:
   ```bash
-  uv run python -m py_compile docs/examples/*.py
+  /usr/bin/python3.12 -m py_compile docs/examples/*.py
   ```
 
 **Related docs to check/update if relevant:**
@@ -134,7 +134,7 @@ Proceed with release preparation?
 
 - [ ] Run all checks before committing:
   ```bash
-  uv run pre-commit run --all-files && uv run mypy src/notebooklm --ignore-missing-imports && uv run pytest
+  /usr/bin/python3.12 -m pre_commit run --all-files && /usr/bin/python3.12 -m mypy src/notebooklm --ignore-missing-imports && /usr/bin/python3.12 -m pytest
   ```
 - [ ] Ensure CI runs the same lint gate (`pre-commit run --all-files`) as local release prep
 - [ ] Fix any issues before proceeding

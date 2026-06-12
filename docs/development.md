@@ -107,11 +107,11 @@ src/notebooklm/
 
 1. **Install dependencies:**
    ```bash
-   uv sync --extra dev --extra browser
-   uv run pre-commit install
+   pip install --break-system-packages -e ".[dev,browser]"
+   /usr/bin/python3.12 -m pre_commit install
    ```
 
-   CI runs the same lint gate with `uv run pre-commit run --all-files`, so local hook results should match the `quality` job.
+   CI runs the same lint gate with `/usr/bin/python3.12 -m pre_commit run --all-files`, so local hook results should match the `quality` job.
 
 2. **Authenticate:**
    ```bash
@@ -128,12 +128,12 @@ src/notebooklm/
 
 ```bash
 # Unit + integration tests (no auth needed)
-uv run pytest
+/usr/bin/python3.12 -m pytest
 
 # E2E tests (requires auth + test notebook)
-uv run pytest tests/e2e -m readonly        # Read-only tests only
-uv run pytest tests/e2e -m "not variants"  # Skip parameter variants
-uv run pytest tests/e2e --include-variants # All tests including variants
+/usr/bin/python3.12 -m pytest tests/e2e -m readonly        # Read-only tests only
+/usr/bin/python3.12 -m pytest tests/e2e -m "not variants"  # Skip parameter variants
+/usr/bin/python3.12 -m pytest tests/e2e --include-variants # All tests including variants
 ```
 
 ### Test Structure
@@ -162,13 +162,13 @@ VCR tests record HTTP interactions for offline, deterministic replay. We have tw
 
 ```bash
 # Run all VCR tests
-uv run pytest tests/integration/
+/usr/bin/python3.12 -m pytest tests/integration/
 
 # Run only CLI VCR tests
-uv run pytest tests/integration/cli_vcr/
+/usr/bin/python3.12 -m pytest tests/integration/cli_vcr/
 
 # Record new cassettes (sensitive data auto-scrubbed)
-NOTEBOOKLM_VCR_RECORD=1 uv run pytest tests/integration/test_vcr_*.py -v
+NOTEBOOKLM_VCR_RECORD=1 /usr/bin/python3.12 -m pytest tests/integration/test_vcr_*.py -v
 ```
 
 Sensitive data (cookies, tokens, emails) is automatically scrubbed from cassettes.
@@ -184,7 +184,7 @@ Sensitive data (cookies, tokens, emails) is automatically scrubbed from cassette
 ### Rate Limiting
 
 NotebookLM has undocumented rate limits. Generation tests may be skipped when rate limited:
-- Use `uv run pytest tests/e2e -m readonly` for quick validation
+- Use `/usr/bin/python3.12 -m pytest tests/e2e -m readonly` for quick validation
 - Wait a few minutes between full test runs
 - `SKIPPED (Rate limited by API)` is expected behavior, not failure
 

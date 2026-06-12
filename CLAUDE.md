@@ -4,6 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **IMPORTANT:** Follow documentation rules in [CONTRIBUTING.md](CONTRIBUTING.md) - especially the file creation and naming conventions.
 
+## Running on this machine
+- Use SYSTEM **/usr/bin/python3.12** — NOT uv or a venv (machine policy).
+- Setup: `pip install --break-system-packages -e ".[all]"`
+- Test: `/usr/bin/python3.12 -m pytest`  ·  Lint: `/usr/bin/python3.12 -m ruff check src/ tests/`
+
 ## Project Overview
 
 `notebooklm-py` is an unofficial Python client for Google NotebookLM that uses undocumented RPC APIs. The library enables programmatic automation of NotebookLM features including notebook management, source integration, AI querying, and studio artifact generation (podcasts, videos, quizzes, etc.).
@@ -13,22 +18,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ```bash
-# Create/recreate venv with uv (recommended - relocatable venvs)
-uv venv .venv
-uv pip install -e ".[all]"
-playwright install chromium
-
-# Activate virtual environment
-source .venv/bin/activate
+# Install with system python3.12 (machine policy - no uv/venv)
+pip install --break-system-packages -e ".[all]"
+/usr/bin/python3.12 -m playwright install chromium
 
 # Run all tests (excluding e2e by default)
-pytest
+/usr/bin/python3.12 -m pytest
 
 # Run with coverage
-pytest --cov
+/usr/bin/python3.12 -m pytest --cov
 
 # Run e2e tests (requires authentication)
-pytest tests/e2e -m e2e
+/usr/bin/python3.12 -m pytest tests/e2e -m e2e
 
 # CLI testing
 notebooklm --help

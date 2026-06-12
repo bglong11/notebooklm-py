@@ -9,18 +9,18 @@
 
 ## Build, Test, and Development Commands
 
-Use `uv` for local work:
+Use system `/usr/bin/python3.12` for local work:
 
 ```bash
-uv sync --extra dev --extra browser
-uv run pytest
-uv run ruff check src/ tests/
-uv run ruff format src/ tests/
-uv run mypy src/notebooklm
-uv run pre-commit run --all-files
+pip install --break-system-packages -e ".[dev,browser]"
+/usr/bin/python3.12 -m pytest
+/usr/bin/python3.12 -m ruff check src/ tests/
+/usr/bin/python3.12 -m ruff format src/ tests/
+/usr/bin/python3.12 -m mypy src/notebooklm
+/usr/bin/python3.12 -m pre_commit run --all-files
 ```
 
-Run `uv run pytest tests/e2e -m readonly` only after `notebooklm login` and setting test notebook env vars.
+Run `/usr/bin/python3.12 -m pytest tests/e2e -m readonly` only after `notebooklm login` and setting test notebook env vars.
 
 ## Coding Style & Naming Conventions
 
@@ -28,7 +28,7 @@ Target Python 3.10+, 4-space indentation, and double quotes. Ruff enforces forma
 
 ## Testing Guidelines
 
-Put pure logic in `tests/unit/`, VCR-backed flows in `tests/integration/`, and authenticated NotebookLM coverage in `tests/e2e/`. Name tests `test_<behavior>.py` and record cassettes with `NOTEBOOKLM_VCR_RECORD=1 uv run pytest tests/integration/test_vcr_*.py -v`. Coverage is expected to stay at or above the configured 90% threshold.
+Put pure logic in `tests/unit/`, VCR-backed flows in `tests/integration/`, and authenticated NotebookLM coverage in `tests/e2e/`. Name tests `test_<behavior>.py` and record cassettes with `NOTEBOOKLM_VCR_RECORD=1 /usr/bin/python3.12 -m pytest tests/integration/test_vcr_*.py -v`. Coverage is expected to stay at or above the configured 90% threshold.
 
 ## Commit, PR, and Agent Notes
 

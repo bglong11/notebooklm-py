@@ -157,3 +157,20 @@ known-first-party = ["notebooklm"]
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[tool.uv]
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64' and python_version == '3.12'"]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-xdist",
+    "playwright",
+    "vcrpy",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-datadir",
+    "pytest-mock",
+    "pytest-recording",
+    "pytest-regressions",
+]
